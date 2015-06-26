@@ -31,12 +31,29 @@ def get_question(p1, p2)
   # puts "#{@player2[:name]}: what is #{@a = rand(1..20)} #{temp_op2 = @operator.sample} #{@b = rand(1..20)}."
   # answer2 = gets.chomp.to_i
   # evaluate(answer2, @player2, temp_op2)
-  puts "#{p1.name}: what is #{@a = rand(1..20)} #{temp_op1 = @operator.sample} #{@b = rand(1..20)}."
-  answer1 = gets.chomp.to_i
-  evaluate(answer1, p1, temp_op1)
-  puts "#{p2.name}: what is #{@a = rand(1..20)} #{temp_op2 = @operator.sample} #{@b = rand(1..20)}."
-  answer2 = gets.chomp.to_i
-  evaluate(answer2, p2, temp_op2)
+  # puts "#{p1.name}: what is #{@a = rand(1..20)} #{temp_op1 = @operator.sample} #{@b = rand(1..20)}."
+  # answer1 = gets.chomp.to_i
+  # evaluate(answer1, p1, temp_op1)
+  # puts "#{p2.name}: what is #{@a = rand(1..20)} #{temp_op2 = @operator.sample} #{@b = rand(1..20)}."
+  # answer2 = gets.chomp.to_i
+  # evaluate(answer2, p2, temp_op2)
+  players = [p1, p2]
+  players.each do |temp_player|
+    puts "#{temp_player.name}: what is #{@a = rand(1..20)} #{temp_op = @operator.sample} #{@b = rand(1..20)}."
+    answer = gets.chomp.to_i
+    evaluate(answer, temp_player, temp_op)
+    temp1 = restart_game if temp_player.zero_hp?
+    if temp1 == true
+      break
+    end
+  end
+  # puts "#{p1.name}: what is #{@a = rand(1..20)} #{temp_op1 = @operator.sample} #{@b = rand(1..20)}."
+  # answer1 = gets.chomp.to_i
+  # evaluate(answer1, p1, temp_op1)
+  # puts "#{p2.name}: what is #{@a = rand(1..20)} #{temp_op2 = @operator.sample} #{@b = rand(1..20)}."
+  # answer2 = gets.chomp.to_i
+  # evaluate(answer2, p2, temp_op2)
+
 
 end
 
@@ -46,7 +63,7 @@ def evaluate(answer, player, a_operator)
   # restart_game if player[:hp] == 0
   answer == @a.public_send(a_operator, @b) ? player.add_score : player.lose_hp
   puts "#{player.name} score: #{player.score} hp: #{player.hp}"
-  restart_game if player.zero_hp?
+  #temp1 = restart_game if player.zero_hp?
 
 end
 
@@ -60,8 +77,8 @@ def restart_game
   @player1.score = 0
   @player2.hp = 3
   @player2.score = 0
-  
 
+  return true  
 
 end
 
